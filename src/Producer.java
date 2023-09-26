@@ -12,6 +12,7 @@ public class Producer extends Thread {
         this.mainQueue = mainQueue;
         this.quantityProducedPerSecond = quantityProducedPerSecond;
 
+        this.setName("Producer");
         start();
     }
 
@@ -28,6 +29,7 @@ public class Producer extends Thread {
             Random random = new Random(System.currentTimeMillis());
             Integer newNumber = random.nextInt(11);
 
+            System.out.println("Produtor produziu o numero: " + newNumber);
             mainQueue.add(newNumber);
 
         }
