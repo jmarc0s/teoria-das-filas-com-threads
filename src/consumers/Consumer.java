@@ -19,7 +19,7 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
-        System.out.println(this.getName() + " iniciado ");
+        // System.out.println(this.getName() + " iniciado ");
 
         while (true) {
             try {
@@ -38,10 +38,11 @@ public class Consumer extends Thread {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println(this.getName() + " |  Tamanho da fila: " + queue.size());
 
             synchronized (queue) {
-                queue.poll();
+                // System.out.println("numero retirado: " + queue.poll());
+                // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
+
             }
 
         }

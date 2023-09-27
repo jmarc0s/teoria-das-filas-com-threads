@@ -44,27 +44,16 @@ public class App {
 
         Thread mainConsumer = new MainConsumer(quantityProducedPerSecond, mainQueue, secondQueue, thirdQueue,
                 fourthQueue, fifthQueue);
-        mainConsumer.setPriority(1);
+        // mainConsumer.setPriority(1);
 
         Thread secondConsumer = new Consumer("Second Consumer", secondQueue, mainConsumer);
-        secondConsumer.setPriority(4);
+        // secondConsumer.setPriority(10);
         Thread thirdConsumer = new Consumer("Third Consumer", thirdQueue, secondConsumer);
-        thirdConsumer.setPriority(6);
+        // thirdConsumer.setPriority(10);
         Thread fourthConsumer = new Consumer("Fourth Consumer", fourthQueue, thirdConsumer);
-        fourthConsumer.setPriority(8);
+        // fourthConsumer.setPriority(10);
         Thread fifthConsumer = new Consumer("Fifth Consumer", fifthQueue, fourthConsumer);
-        fifthConsumer.setPriority(10);
-
-        // Thread fifthConsumer = new FifthConsumer(mainQueue);
-        // fifthConsumer.start();
-        // Thread fourthConsumer = new FourthConsumer();
-        // fourthConsumer.start();
-        // Thread thirdConsumer = new ThirdConsumer();
-        // thirdConsumer.start();
-
-        // Thread minhaThread = new MainConsumer(mainQueue);
-        // minhaThread.start();
-        System.out.println("Hello, World!");
+        // fifthConsumer.setPriority(10);
 
     }
 }

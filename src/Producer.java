@@ -29,14 +29,14 @@ public class Producer extends Thread {
             Random random = new Random(System.currentTimeMillis());
             Integer newNumber = random.nextInt(11);
 
-            System.out.println("Produtor produziu o numero: " + newNumber);
+            // System.out.println("Produtor produziu o numero: " + newNumber);
 
             synchronized (mainQueue) {
                 mainQueue.add(newNumber);
+                System.out.println("Tamanho da fila principal: " + mainQueue.size());
             }
 
         }
 
-        // System.out.println("Produtor consumidor iniciado");
     }
 }

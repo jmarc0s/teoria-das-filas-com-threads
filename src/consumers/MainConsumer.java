@@ -37,10 +37,8 @@ public class MainConsumer extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Consumidor principal iniciado");
-        boolean one = false;
-        boolean two = false;
-        boolean three = false;
+        // System.out.println("Consumidor principal iniciado");
+
         // cria uma lista de filas
         List<BlockingQueue<Integer>> queueList = List.of(this.secondQueue, this.thirdQueue, this.fourthQueue,
                 this.fifthQueue);
@@ -67,17 +65,17 @@ public class MainConsumer extends Thread {
             // encontra a fila com menor tamanho
             BlockingQueue<Integer> smallestQueue;
             synchronized (queueList) {
-                smallestQueue = Collections.min(queueList,
-                        Comparator.comparingInt(BlockingQueue::size));
+                // smallestQueue = Collections.min(queueList,
+                // Comparator.comparingInt(BlockingQueue::size));
             }
 
             synchronized (mainQueue) {
                 if (!mainQueue.isEmpty()) {
                     // System.out.println("Tentando adicionar na lista: " + index);
 
-                    synchronized (smallestQueue) {
-                        smallestQueue.add(mainQueue.poll());
-                    }
+                    // synchronized (smallestQueue) {
+                    // smallestQueue.add(mainQueue.poll());
+                    // }
 
                     // if (one == false || two == false || three == false) {
                     // secondQueue.add(mainQueue.poll());
@@ -106,59 +104,51 @@ public class MainConsumer extends Thread {
                     // index++;
                     // }
 
-                    // System.out.println("buffer list size: " + bufferList.size());
-                    // // bufferList.add(mainQueue.poll());
+                    // BALANCEMANETO DE DISTRIBUIÇÃO PROPORCIONAL
+                    bufferList.add(mainQueue.poll());
+                    System.out.println("buffer list size: " + bufferList.size());
+                    if (bufferList.size() >= 10) {
+                        // System.out.println("Chegou aqui antes de adicionar na segunda lista");
+                        for (int i = 0; i < 5; i++) {
 
-                    // // if (bufferList.size() >= 10) {
-                    // System.out.println("Chegou aqui antes de adicionar na segunda lista");
-                    // for (int i = 0; i < 5; i++) {
+                            synchronized (secondQueue) {
+                                this.secondQueue.add(bufferList.get(i));
+                                System.out.println(
+                                        "Adicionado na segunda lista | tamanho: " + this.secondQueue.size());
+                            }
 
-                    // if (mainQueue.peek() != null) {
-                    // synchronized (secondQueue) {
-                    // this.secondQueue.add(mainQueue.poll());
-                    // System.out.println("Adicionado na segunda lista");
-                    // }
+                            bufferList.remove(i);
+                        }
+                        for (int i = 0; i < 2; i++) {
 
-                    // }
+                            synchronized (thirdQueue) {
+                                this.thirdQueue.add(bufferList.get(i));
+                                System.out.println("Adicionado na terceira lista | tamanho: " + this.thirdQueue.size());
+                                bufferList.remove(i);
+                            }
 
-                    // // bufferList.remove(i);
-                    // }
-                    // for (int i = 0; i < 2; i++) {
+                        }
+                        for (int i = 0; i < 1; i++) {
 
-                    // if (mainQueue.peek() != null) {
-                    // synchronized (thirdQueue) {
-                    // this.thirdQueue.add(mainQueue.poll());
-                    // System.out.println("Adicionado na terceira lista");
-                    // // bufferList.remove(i);
-                    // }
-                    // }
+                            synchronized (fourthQueue) {
+                                this.fourthQueue.add(bufferList.get(i));
+                                System.out.println("Adicionado na quarta lista | tamanho: " + this.fourthQueue.size());
+                                bufferList.remove(i);
+                            }
 
-                    // }
-                    // for (int i = 0; i < 1; i++) {
+                        }
 
-                    // if (mainQueue.peek() != null) {
-                    // synchronized (fourthQueue) {
-                    // this.fourthQueue.add(mainQueue.poll());
-                    // System.out.println("Adicionado na quarta lista");
-                    // // bufferList.remove(i);
-                    // }
-                    // }
+                        for (int i = 0; i < 1; i++) {
+                            synchronized (fifthQueue) {
+                                this.fifthQueue.add(bufferList.get(i));
+                                System.out
+                                        .println("Adicionado na quinta lista | tamanho: " + this.fifthQueue.size());
+                                bufferList.remove(i);
+                            }
 
-                    // }
+                        }
 
-                    // for (int i = 0; i < 1; i++) {
-
-                    // if (mainQueue.peek() != null) {
-                    // synchronized (fifthQueue) {
-                    // this.fifthQueue.add(mainQueue.poll());
-                    // System.out.println("Adicionado na quinta lista");
-                    // // bufferList.remove(i);
-                    // }
-                    // }
-
-                    // }
-
-                    // }
+                    }
 
                 }
 
@@ -177,7 +167,7 @@ public class MainConsumer extends Thread {
                 // // faça o que tem que ser feito
                 // }
 
-                System.out.println("Proximo na fila: " + mainQueue.peek());
+                // System.out.println("Proximo na fila: " + mainQueue.peek());
             }
         }
 
