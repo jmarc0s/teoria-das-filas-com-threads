@@ -19,14 +19,18 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
+        System.out.println(this.getName() + " iniciado ");
 
         while (true) {
             try {
 
-                try {
-                    timeToSleep = ((Consumer) previusConsumer).getTimeToSleep() * 2;
-                } catch (ClassCastException e) {
-                    timeToSleep = ((MainConsumer) previusConsumer).getTimeToSleep() * 2;
+                synchronized (previusConsumer) {
+                    try {
+
+                        timeToSleep = ((Consumer) previusConsumer).getTimeToSleep() * 2;
+                    } catch (ClassCastException e) {
+                        timeToSleep = ((MainConsumer) previusConsumer).getTimeToSleep() * 2;
+                    }
                 }
 
                 Thread.sleep(timeToSleep);
@@ -34,9 +38,12 @@ public class Consumer extends Thread {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            System.out.println(this.getName() + " |  Tamanho da fila: " + queue.size());
 
-            queue.poll();
-            System.out.println(this.getName() + " iniciado |  Tamanho da fila: " + queue.size());
+            synchronized (queue) {
+                queue.poll();
+            }
+
         }
     }
 

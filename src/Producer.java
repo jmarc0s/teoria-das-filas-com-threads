@@ -30,7 +30,10 @@ public class Producer extends Thread {
             Integer newNumber = random.nextInt(11);
 
             System.out.println("Produtor produziu o numero: " + newNumber);
-            mainQueue.add(newNumber);
+
+            synchronized (mainQueue) {
+                mainQueue.add(newNumber);
+            }
 
         }
 
