@@ -63,17 +63,18 @@ public class MainConsumer extends Thread {
             }
 
             // encontra a fila com menor tamanho
-            BlockingQueue<Integer> smallestQueue;
-            synchronized (queueList) {
-                // smallestQueue = Collections.min(queueList,
-                // Comparator.comparingInt(BlockingQueue::size));
-            }
+            // BlockingQueue<Integer> smallestQueue;
+            // synchronized (queueList) {
+            // smallestQueue = Collections.min(queueList,
+            // Comparator.comparingInt(BlockingQueue::size));
+            // }
 
             synchronized (mainQueue) {
                 if (!mainQueue.isEmpty()) {
                     // System.out.println("Tentando adicionar na lista: " + index);
 
                     // synchronized (smallestQueue) {
+                    // System.out.println(" Tamanho da fila menor: " + smallestQueue.size());
                     // smallestQueue.add(mainQueue.poll());
                     // }
 
@@ -109,41 +110,54 @@ public class MainConsumer extends Thread {
                     System.out.println("buffer list size: " + bufferList.size());
                     if (bufferList.size() >= 10) {
                         // System.out.println("Chegou aqui antes de adicionar na segunda lista");
-                        for (int i = 0; i < 5; i++) {
+                        for (int i = 0; i < 6; i++) {
 
                             synchronized (secondQueue) {
-                                this.secondQueue.add(bufferList.get(i));
-                                System.out.println(
-                                        "Adicionado na segunda lista | tamanho: " + this.secondQueue.size());
+
+                                if (bufferList.size() > i) {
+                                    this.secondQueue.add(bufferList.get(i));
+                                    System.out.println(
+                                            "Adicionado na segunda lista | tamanho: " + this.secondQueue.size());
+                                    bufferList.remove(i);
+                                }
+
                             }
 
-                            bufferList.remove(i);
                         }
                         for (int i = 0; i < 2; i++) {
 
                             synchronized (thirdQueue) {
-                                this.thirdQueue.add(bufferList.get(i));
-                                System.out.println("Adicionado na terceira lista | tamanho: " + this.thirdQueue.size());
-                                bufferList.remove(i);
+                                if (bufferList.size() > i) {
+                                    this.thirdQueue.add(bufferList.get(i));
+                                    System.out.println("Adicionado na terceira lista | tamanho: " +
+                                            this.thirdQueue.size());
+                                    bufferList.remove(i);
+                                }
                             }
 
                         }
                         for (int i = 0; i < 1; i++) {
 
                             synchronized (fourthQueue) {
-                                this.fourthQueue.add(bufferList.get(i));
-                                System.out.println("Adicionado na quarta lista | tamanho: " + this.fourthQueue.size());
-                                bufferList.remove(i);
+                                if (bufferList.size() > i) {
+                                    this.fourthQueue.add(bufferList.get(i));
+                                    System.out.println(
+                                            "Adicionado na quarta lista | tamanho: " + this.fourthQueue.size());
+                                    bufferList.remove(i);
+                                }
+
                             }
 
                         }
 
                         for (int i = 0; i < 1; i++) {
                             synchronized (fifthQueue) {
-                                this.fifthQueue.add(bufferList.get(i));
-                                System.out
-                                        .println("Adicionado na quinta lista | tamanho: " + this.fifthQueue.size());
-                                bufferList.remove(i);
+                                if (bufferList.size() > i) {
+                                    this.fifthQueue.add(bufferList.get(i));
+                                    System.out
+                                            .println("Adicionado na quinta lista | tamanho: " + this.fifthQueue.size());
+                                    bufferList.remove(i);
+                                }
                             }
 
                         }
@@ -151,21 +165,6 @@ public class MainConsumer extends Thread {
                     }
 
                 }
-
-                // int minValue = Collections.min(queueList
-                // .stream()
-                // .map(queue -> queue.size())
-                // .collect(Collectors.toList()));
-
-                // if (secondQueue.size() == minValue) {
-                // // faça o que tem que ser feito
-                // } else if (thirdQueue.size() == minValue) {
-                // // faça o que tem que ser feito
-                // } else if (fourthQueue.size() == minValue) {
-                // // faça o que tem que ser feito
-                // } else {
-                // // faça o que tem que ser feito
-                // }
 
                 // System.out.println("Proximo na fila: " + mainQueue.peek());
             }

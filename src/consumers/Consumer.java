@@ -40,7 +40,7 @@ public class Consumer extends Thread {
             }
 
             synchronized (queue) {
-                // System.out.println("numero retirado: " + queue.poll());
+                System.out.println("numero retirado: " + queue.poll());
                 // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
 
             }
