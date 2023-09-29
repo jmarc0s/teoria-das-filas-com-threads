@@ -31,10 +31,10 @@ public class Producer extends Thread {
 
             // System.out.println("Produtor produziu o numero: " + newNumber);
 
-            synchronized (mainQueue) {
-                mainQueue.add(newNumber);
-                System.out.println("Tamanho da fila principal: " + mainQueue.size());
-            }
+            // synchronized (mainQueue) {
+            mainQueue.add(newNumber);
+            // System.out.println("Tamanho da fila principal: " + mainQueue.size());
+            // }
 
         }
 

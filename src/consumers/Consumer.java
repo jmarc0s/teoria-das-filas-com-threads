@@ -24,14 +24,14 @@ public class Consumer extends Thread {
         while (true) {
             try {
 
-                synchronized (previusConsumer) {
-                    try {
+                // synchronized (previusConsumer) {
+                try {
 
-                        timeToSleep = ((Consumer) previusConsumer).getTimeToSleep() * 2;
-                    } catch (ClassCastException e) {
-                        timeToSleep = ((MainConsumer) previusConsumer).getTimeToSleep() * 2;
-                    }
+                    timeToSleep = ((Consumer) previusConsumer).getTimeToSleep() * 2;
+                } catch (ClassCastException e) {
+                    timeToSleep = ((MainConsumer) previusConsumer).getTimeToSleep() * 2;
                 }
+                // }
 
                 Thread.sleep(timeToSleep);
             } catch (InterruptedException e) {
@@ -39,11 +39,12 @@ public class Consumer extends Thread {
                 e.printStackTrace();
             }
 
-            synchronized (queue) {
-                System.out.println("numero retirado: " + queue.poll());
-                // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
+            // synchronized (queue) {
+            queue.poll();
+            // System.out.println("numero retirado: " + queue.poll());
+            // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
 
-            }
+            // }
 
         }
     }

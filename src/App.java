@@ -44,7 +44,7 @@ public class App {
 
         Thread mainConsumer = new MainConsumer(quantityProducedPerSecond, mainQueue, secondQueue, thirdQueue,
                 fourthQueue, fifthQueue);
-        // mainConsumer.setPriority(1);
+        // mainConsumer.setPriority(10);
 
         Thread secondConsumer = new Consumer("Second Consumer", secondQueue, mainConsumer);
         // secondConsumer.setPriority(10);
@@ -55,5 +55,6 @@ public class App {
         Thread fifthConsumer = new Consumer("Fifth Consumer", fifthQueue, fourthConsumer);
         // fifthConsumer.setPriority(10);
 
+        Thread queueMonitor = new QueueMonitor(mainQueue, secondQueue, thirdQueue, fourthQueue, fifthQueue);
     }
 }
