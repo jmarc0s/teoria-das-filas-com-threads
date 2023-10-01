@@ -1,12 +1,10 @@
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 public class Producer extends Thread {
 
-    BlockingQueue<Integer> mainQueue;
-    Integer quantityProducedPerSecond;
+    private BlockingQueue<Integer> mainQueue;
+    private Integer quantityProducedPerSecond;
 
     public Producer(Integer quantityProducedPerSecond, BlockingQueue<Integer> mainQueue) {
         this.mainQueue = mainQueue;

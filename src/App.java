@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -55,7 +50,9 @@ public class App {
         Thread fifthConsumer = new Consumer("Fifth Consumer", fifthQueue, fourthConsumer);
         // fifthConsumer.setPriority(10);
 
-        Thread queueMonitor = new QueueMonitor(quantityProducedPerSecond, mainQueue, secondQueue, thirdQueue,
-                fourthQueue, fifthQueue, mainConsumer);
+        Thread queueMonitor = new QueueMonitor(quantityProducedPerSecond,
+                mainQueue, secondQueue, thirdQueue,
+                fourthQueue, fifthQueue, mainConsumer,
+                secondConsumer, thirdConsumer, fourthConsumer, fifthConsumer);
     }
 }

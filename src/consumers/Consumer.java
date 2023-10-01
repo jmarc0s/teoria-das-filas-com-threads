@@ -4,9 +4,10 @@ import java.util.concurrent.BlockingQueue;
 
 public class Consumer extends Thread {
 
-    Thread previusConsumer;
-    BlockingQueue<Integer> queue;
-    Integer timeToSleep;
+    private Thread previusConsumer;
+    private BlockingQueue<Integer> queue;
+    private Integer timeToSleep;
+    private int queueThroughput = 0;
 
     public Consumer(String consumerName, BlockingQueue<Integer> queue, Thread previusConsumer) {
         this.queue = queue;
@@ -41,6 +42,7 @@ public class Consumer extends Thread {
 
             // synchronized (queue) {
             queue.poll();
+            queueThroughput++;
             // System.out.println("numero retirado: " + queue.poll());
             // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
 
@@ -51,6 +53,14 @@ public class Consumer extends Thread {
 
     public Integer getTimeToSleep() {
         return this.timeToSleep;
+    }
+
+    public int getQueueThroughput() {
+        return this.queueThroughput;
+    }
+
+    public void resetQueueThroughput() {
+        this.queueThroughput = 0;
     }
 
 }
