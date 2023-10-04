@@ -3,10 +3,11 @@ import java.util.concurrent.BlockingQueue;
 
 public class Producer extends Thread {
 
-    private BlockingQueue<Integer> mainQueue;
-    private Integer quantityProducedPerSecond;
+    private final BlockingQueue<Integer> mainQueue;
+    private final Integer quantityProducedPerSecond;
 
-    public Producer(Integer quantityProducedPerSecond, BlockingQueue<Integer> mainQueue) {
+    public Producer(Integer quantityProducedPerSecond,
+                    BlockingQueue<Integer> mainQueue) {
         this.mainQueue = mainQueue;
         this.quantityProducedPerSecond = quantityProducedPerSecond;
 
@@ -27,14 +28,7 @@ public class Producer extends Thread {
             Random random = new Random(System.currentTimeMillis());
             Integer newNumber = random.nextInt(11);
 
-            // System.out.println("Produtor produziu o numero: " + newNumber);
-
-            // synchronized (mainQueue) {
             mainQueue.add(newNumber);
-            // System.out.println("Tamanho da fila principal: " + mainQueue.size());
-            // }
-
         }
-
     }
 }

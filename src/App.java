@@ -17,6 +17,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         Scanner scanner;
+
         while (true) {
             System.out.println(
                     "Digite a quantidade de elementos produzidos por segundo para o produtor (min: 1, max: 10): ");
@@ -28,31 +29,38 @@ public class App {
                 if (quantityProducedPerSecond >= 1 && quantityProducedPerSecond <= 10) {
                     break;
                 }
-
             }
-
             System.out.println("Valor inválido!");
         }
+
         scanner.close();
 
         Thread producer = new Producer(quantityProducedPerSecond, mainQueue);
 
-        Thread mainConsumer = new MainConsumer(quantityProducedPerSecond, mainQueue, secondQueue, thirdQueue,
-                fourthQueue, fifthQueue);
-        // mainConsumer.setPriority(10);
+        Thread mainConsumer = new MainConsumer(
+                quantityProducedPerSecond,
+                mainQueue,
+                secondQueue,
+                thirdQueue,
+                fourthQueue,
+                fifthQueue);
 
         Thread secondConsumer = new Consumer("Second Consumer", secondQueue, mainConsumer);
-        // secondConsumer.setPriority(10);
         Thread thirdConsumer = new Consumer("Third Consumer", thirdQueue, secondConsumer);
-        // thirdConsumer.setPriority(10);
         Thread fourthConsumer = new Consumer("Fourth Consumer", fourthQueue, thirdConsumer);
-        // fourthConsumer.setPriority(10);
         Thread fifthConsumer = new Consumer("Fifth Consumer", fifthQueue, fourthConsumer);
-        // fifthConsumer.setPriority(10);
 
-        Thread queueMonitor = new QueueMonitor(quantityProducedPerSecond,
-                mainQueue, secondQueue, thirdQueue,
-                fourthQueue, fifthQueue, mainConsumer,
-                secondConsumer, thirdConsumer, fourthConsumer, fifthConsumer);
+        Thread queueMonitor = new QueueMonitor(
+                quantityProducedPerSecond,
+                mainQueue,
+                secondQueue,
+                thirdQueue,
+                fourthQueue,
+                fifthQueue,
+                mainConsumer,
+                secondConsumer,
+                thirdConsumer,
+                fourthConsumer,
+                fifthConsumer);
     }
 }

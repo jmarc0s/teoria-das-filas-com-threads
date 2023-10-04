@@ -4,14 +4,14 @@ import java.util.concurrent.BlockingQueue;
 
 public class Consumer extends Thread {
 
-    private Thread previusConsumer;
-    private BlockingQueue<Integer> queue;
+    private final Thread previousConsumer;
+    private final BlockingQueue<Integer> queue;
     private Integer timeToSleep;
     private int queueThroughput = 0;
 
-    public Consumer(String consumerName, BlockingQueue<Integer> queue, Thread previusConsumer) {
+    public Consumer(String consumerName, BlockingQueue<Integer> queue, Thread previousConsumer) {
         this.queue = queue;
-        this.previusConsumer = previusConsumer;
+        this.previousConsumer = previousConsumer;
         this.timeToSleep = 0;
         this.setName(consumerName);
 
@@ -20,34 +20,22 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
-        // System.out.println(this.getName() + " iniciado ");
-
         while (true) {
             try {
-
-                // synchronized (previusConsumer) {
                 try {
 
-                    timeToSleep = ((Consumer) previusConsumer).getTimeToSleep() * 2;
+                    timeToSleep = ((Consumer) previousConsumer).getTimeToSleep() * 2;
                 } catch (ClassCastException e) {
-                    timeToSleep = ((MainConsumer) previusConsumer).getTimeToSleep() * 2;
+                    timeToSleep = ((MainConsumer) previousConsumer).getTimeToSleep() * 2;
                 }
-                // }
 
                 Thread.sleep(timeToSleep);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
-            // synchronized (queue) {
             queue.poll();
             queueThroughput++;
-            // System.out.println("numero retirado: " + queue.poll());
-            // System.out.println(this.getName() + " | Tamanho da fila: " + queue.size());
-
-            // }
-
         }
     }
 
@@ -62,5 +50,4 @@ public class Consumer extends Thread {
     public void resetQueueThroughput() {
         this.queueThroughput = 0;
     }
-
 }

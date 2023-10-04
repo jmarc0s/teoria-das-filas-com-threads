@@ -5,17 +5,17 @@ import consumers.MainConsumer;
 
 public class QueueMonitor extends Thread {
 
-    private BlockingQueue<Integer> mainQueue;
-    private BlockingQueue<Integer> secondQueue;
-    private BlockingQueue<Integer> thirdQueue;
-    private BlockingQueue<Integer> fourthQueue;
-    private BlockingQueue<Integer> fifthQueue;
-    private Integer quantityProducedPerSecond;
-    private MainConsumer mainConsumer;
-    private Consumer secondConsumer;
-    private Consumer thirdConsumer;
-    private Consumer fourthConsumer;
-    private Consumer fifthConsumer;
+    private final BlockingQueue<Integer> mainQueue;
+    private final BlockingQueue<Integer> secondQueue;
+    private final BlockingQueue<Integer> thirdQueue;
+    private final BlockingQueue<Integer> fourthQueue;
+    private final BlockingQueue<Integer> fifthQueue;
+    private final Integer quantityProducedPerSecond;
+    private final MainConsumer mainConsumer;
+    private final Consumer secondConsumer;
+    private final Consumer thirdConsumer;
+    private final Consumer fourthConsumer;
+    private final Consumer fifthConsumer;
 
     public QueueMonitor(Integer quantityProducedPerSecond, BlockingQueue<Integer> mainQueue,
             BlockingQueue<Integer> secondQueue,
@@ -52,7 +52,6 @@ public class QueueMonitor extends Thread {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -117,27 +116,27 @@ public class QueueMonitor extends Thread {
     }
 
     private int getSecondArrivalRateInformation() {
-        int arrivaleRate = mainConsumer.getSecondQueueArrivalRate();
+        int arrivalRate = mainConsumer.getSecondQueueArrivalRate();
         mainConsumer.resetSecondQueueArrivalRate();
-        return arrivaleRate;
+        return arrivalRate;
     }
 
     private int getThirdQueueArrivalRateInformation() {
-        int arrivaleRate = mainConsumer.getThirdQueueArrivalRate();
+        int arrivalRate = mainConsumer.getThirdQueueArrivalRate();
         mainConsumer.resetThirdQueueArrivalRate();
-        return arrivaleRate;
+        return arrivalRate;
     }
 
     private int getFourthQueueArrivalRateInformation() {
-        int arrivaleRate = mainConsumer.getFourthQueueArrivalRate();
+        int arrivalRate = mainConsumer.getFourthQueueArrivalRate();
         mainConsumer.resetFourthQueueArrivalRate();
-        return arrivaleRate;
+        return arrivalRate;
     }
 
     private int getFifthQueueArrivalRateInformation() {
-        int arrivaleRate = mainConsumer.getFifthQueueArrivalRate();
+        int arrivalRate = mainConsumer.getFifthQueueArrivalRate();
         mainConsumer.resetFifthQueueArrivalRate();
-        return arrivaleRate;
+        return arrivalRate;
     }
 
 }
