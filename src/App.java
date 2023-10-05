@@ -2,9 +2,6 @@ import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import consumers.MainConsumer;
-import consumers.Consumer;
-
 public class App {
 
     private final static int MAXIMUM_QUEUE_CAPACITY = 10;

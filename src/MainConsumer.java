@@ -1,5 +1,3 @@
-package consumers;
-
 import java.util.concurrent.BlockingQueue;;
 
 public class MainConsumer extends Thread {

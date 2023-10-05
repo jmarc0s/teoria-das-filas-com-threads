@@ -1,8 +1,5 @@
 import java.util.concurrent.BlockingQueue;
 
-import consumers.Consumer;
-import consumers.MainConsumer;
-
 public class QueueMonitor extends Thread {
 
     private final BlockingQueue<Integer> mainQueue;
